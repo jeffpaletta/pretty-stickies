@@ -1,0 +1,14 @@
+<div class="ng-sticky-notes">
+    <ul class="ng-sticky-item-list" ui-sortable="sortableOptions" ng-model="styckyNotes">
+        <li ng-style="outDropEnabled && stickyItem.style" ng-dblclick="toFront(stickyItem)" data-id="{{stickyItem.id}}" class="ng-sticky-item-list-item" ng-repeat="stickyItem in styckyNotes">
+            <ng-sticky-item header-max-length="headerMaxLength"
+                            content-max-length="contentMaxLength"
+                            readonly-enabled="readonlyEnabled"
+                            context="stickyItem"
+                            on-change="save(stickyItem)"
+                            on-remove="remove(stickyItem)">
+            </ng-sticky-item>
+        </li>
+    </ul>
+    <div style="clear: both"></div>
+</div>

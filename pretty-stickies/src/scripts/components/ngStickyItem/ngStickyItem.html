@@ -1,0 +1,31 @@
+<div class="ng-sticky-item" ng-style="getStyle()">
+    <div class="ng-sticky-item-header">
+        <button type="button" ng-show="!readonlyEnabled" class="remove ng-sticky-notes-button" ng-click="remove()" title="{{'STICKY_NOTES.REMOVE'|translate}}"><i class="fa fa-remove"></i></button>
+    </div>
+    <div class="ng-sticky-item-content">
+        <div ng-show="!isEditHeaderMode" ng-click="editHeader()" title="{{context.title}}">
+            <h2 ng-show="context.title && context.title.length > 0">{{context.title}}</h2>
+            <h2 ng-show="!context.title || context.title.length === 0" class="watermark">{{'STICKY_NOTES.TITLE'|translate}}</h2>
+        </div>
+        <h2 ng-show="isEditHeaderMode">
+            <input type="text" placeholder="{{'STICKY_NOTES.TITLE'|translate}}" ng-model="context.title" ng-blur="saveHeader();"
+                   ng-keydown="onHeaderEnter($event)"
+                   ng-maxlength="headerMaxLength" maxlength="{{headerMaxLength}}"/>
+        </h2>
+
+        <div class="editable-form" ng-show="!isEditContentMode" ng-click="editContent($event)" title="{{context.text}}">
+            <p ng-show="context.text && context.text.length > 0" class="text-renderer"></p>
+            <p ng-show="!context.text || context.text.length === 0" class="watermark">{{'STICKY_NOTES.TEXT'|translate}}</p>
+        </div>
+        <p ng-show="isEditContentMode">
+            <textarea ng-model="context.text" rows="3" placeholder="{{'STICKY_NOTES.TEXT'|translate}}" ng-blur="saveContent();"
+                      ng-keydown="onContentEnter($event)"
+                      ng-maxlength="contentMaxLength" maxlength="{{contentMaxLength}}"></textarea>
+        </p>
+    </div>
+    <div class="ng-sticky-item-footer">
+        <p>
+            {{context.date | date:'medium'}}
+        </p>
+    </div>
+</div>

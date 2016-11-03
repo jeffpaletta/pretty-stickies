@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ngStickyNotes">
+<head>
+    <meta charset="UTF-8">
+    <title>ngStickyNotes</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet">
+    <link href="styles/ng-sticky-notes.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: arial, sans-serif;
+            font-size: 100%;
+            margin: 3em;
+            background: #666;
+            color: #fff;
+        }
+        h2,p {
+            font-size: 100%;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <ng-sticky-notes-new></ng-sticky-notes-new>
+    <ng-sticky-notes-clean></ng-sticky-notes-clean>
+    <ng-sticky-notes header-max-length="25"
+                     content-max-length="100"
+                     drag-and-drop-enabled="true"
+                     out-drop-enabled="true">
+    </ng-sticky-notes>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.1/angular-translate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.2.2/angular-local-storage.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.13.4/sortable.min.js"></script>
+    <script src="scripts/ng-sticky-notes.min.js"></script>
+</body>
+</html>

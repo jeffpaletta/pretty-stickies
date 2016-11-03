@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <title>ngStickyNotes</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet">
+    <link rel="stylesheet" href="styles/ng-sticky-notes.min.css">
+    <style>
+        body{
+            background-color: #E8E8E8;
+        }
+        .page-header {
+            text-shadow: 1px 1px 1px rgba(158, 158, 158, 0.5);
+        }
+        .ng-sticky-notes-button {
+            color: black;
+            text-shadow: 1px 1px 0 rgba(158,158,158,0.3);
+        }
+        .settings-panel {
+            padding: 1em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body ng-controller="demoCtrl">
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fa fa-sticky-note" style="transform: rotate(-13deg);"></i>ngStickyNotes</h1>
+            <p class="lead"> - is a configurable easy to use Angular component that stores user notes.</p>
+        </div>
+
+        <div class="row" id="configurable">
+            <h2>
+                <a href="#configurable">Configurable</a>
+            </h2>
+            <div class="col-sm-4 settings-panel">
+                <form>
+                <div class="form-group">
+                    <label for="cookieValue" ng-cloak>
+                        Cookie "{{cookieKey}}":
+                    </label>
+                    <input id="cookieValue" class="form-control"  type="text" ng-model="userCookieValue">
+                    <p class="help-block">Bind sticky notes to user cookie.</p>
+                </div>
+                <div class="form-group">
+                    <label for="headerMaxLength">
+                        Header Max Length:
+                    </label>
+                    <input id="headerMaxLength" class="form-control"  type="number" ng-model="headerMaxLength">
+                    <p class="help-block">Limits the number of characters in a sticker title.</p>
+                </div>
+                <div class="form-group">
+                    <label for="contentMaxLength">
+                        Content Max Length:
+                    </label>
+                    <input id="contentMaxLength" class="form-control" type="number" ng-model="contentMaxLength">
+                    <p class="help-block">Limits the number of characters in a sticker content.</p>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="readonlyEnabled">Readonly
+                        </label>
+                        <p class="help-block">Does not allow to edit notes or add new notes when enabled.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="dragAndDropEnabled">Drag&Drop
+                        </label>
+                        <p class="help-block">Notes becomes draggable when enabled.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="outDropEnabled">Out-Drop
+                        </label>
+                        <p class="help-block">Allows to drop notes at any location on a page.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="magneticEffectEnabled">Magnetic Effect
+                        </label>
+                        <p class="help-block">When drag&drop and out-drop features enabled allows to put notes back to the container.</p>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="col-sm-8">
+                <!-- Render Add New button -->
+                <ng-sticky-notes-new></ng-sticky-notes-new>
+                <!-- Render Remove All button -->
+                <ng-sticky-notes-clean></ng-sticky-notes-clean>
+                <p class="help-block">Double-Click item to put it on the top.</p>
+                <!-- Render Sticky Notes -->
+                <div class="sticky-notes content">
+                    <ng-sticky-notes header-max-length="headerMaxLength"
+                                     content-max-length="contentMaxLength"
+                                     readonly-enabled="readonlyEnabled"
+                                     drag-and-drop-enabled="dragAndDropEnabled"
+                                     out-drop-enabled="outDropEnabled"
+                                     magnetic-effect-enabled="magneticEffectEnabled">
+                    </ng-sticky-notes>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+    <script src="bower_components/firebase/firebase-debug.js"></script>
+    <script src="bower_components/angularfire/dist/angularfire.js"></script>
+    <script src="scripts/ng-sticky-notes.min.js"></script>
+
+    <script type="text/javascript">
+        angular
+            .module('myApp', ['ngStickyNotes', 'ngCookies'])
+            .config(function(notesStorageProvider){
+                notesStorageProvider.setConfig({
+                    cookieKey: 'uid',
+                    fireURL: 'https://sticky-notes-server.firebaseio.com/',
+                    SYNC_INTERVAL: 2000
+                });
+            })
+            .controller('demoCtrl', function($rootScope, $scope, $cookies, notesStorage) {
+                // Control Panel default values
+                $scope.cookieKey = notesStorage.getConfig().cookieKey;
+                $scope.userCookieValue = $cookies.get($scope.cookieKey);
+                $scope.headerMaxLength = 25;
+                $scope.contentMaxLength = 100;
+                $scope.dragAndDropEnabled = true;
+                $scope.outDropEnabled = true;
+                $scope.magneticEffectEnabled = false;
+
+                // Watch on cookie value and refresh Sticky Notes when it has been changed
+                $scope.$watch('userCookieValue', function (newUserCookieValue) {
+                    $cookies.put($scope.cookieKey, newUserCookieValue);
+                    $rootScope.$broadcast('ngStickyNotes.Refresh');
+                });
+            });
+    </script>
+</body>
+</html>

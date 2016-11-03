@@ -1,0 +1,9 @@
+.ng-sticky-notes-button {
+  outline: none 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  &:hover {
+    color: black;
+  }
+}

@@ -1,0 +1,173 @@
+<h1 id="ngstickynotes">ngStickyNotes</h1>
+<h3 id="prepare">Prepare</h3>
+<p>Please read the following instructions which help you to set up environment to build this project.</p>
+<ol>
+<li><p>Install <a href="https://nodejs.org">Node.js</a> and <a href="https://docs.npmjs.com/">npm</a>.</p>
+</li>
+<li><p>Install <a href="http://gulpjs.com/">gulp</a> globally:</p>
+<pre><code>npm install -g gulp
+npm install -g gulp-cli
+</code></pre></li>
+<li><p>Install <a href="http://bower.io/">bower</a> globally:</p>
+<pre><code>npm install -g bower
+</code></pre><p>Please pay attention that bower requires <a href="http://git-scm.com/downloads">git</a>.</p>
+</li>
+<li><p>Download <code>npm</code> and <code>bower</code> packages:</p>
+<pre><code>npm install
+bower install
+</code></pre></li>
+</ol>
+<p>If you have <code>Node.js</code>, <code>npm</code>, <code>bower</code> and <code>gulp</code> you are ready to the next stage.</p>
+<h3 id="build">Build</h3>
+<p>Here is a list of <code>gulp</code> commands which can be used to build different parts of the project.</p>
+<ol>
+<li><p>To start NodeJS server and deploy <em>debug</em> version locally run this command:</p>
+<pre><code>gulp serve:debug
+</code></pre></li>
+<li><p>To start NodeJS server and deploy <em>production</em> version locally:</p>
+<pre><code>gulp serve
+</code></pre></li>
+<li><p>To build production scripts:</p>
+<pre><code>gulp build
+</code></pre><p>Scripts will be placed in the <code>dist</code> folder in the project root.</p>
+</li>
+<li><p>To build Readme.html and Readme.pdf based on Readme.md file run:</p>
+<pre><code>gulp readme:html
+gulp readme:pdf
+</code></pre></li>
+</ol>
+<p>All building tasks can be found in the <code>gulp\tasks</code> folder.</p>
+<h3 id="how-to-use">How to use</h3>
+<p>This component consists of two files <code>ng-sticky-notes.min.css</code> and <code>ng-sticky-notes.min.js</code> that can be found in the project <code>dist</code> folder.
+All you need is to include these files and dependencies in your html file, put angular directives on your page and run scripts.
+It can be done in 3 simple steps:</p>
+<ol>
+<li><p>Add styles in the page header section:</p>
+<pre><code>&lt;!-- Awesome Fonts are required for icons --&gt;
+&lt;link href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;!-- Reenie Beanie makes written by hand effect --&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css?family=Reenie+Beanie:regular&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;!-- Component Styles --&gt;
+&lt;link href=&quot;styles/ng-sticky-notes.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre><p>Add scripts at the end of the page body:</p>
+<pre><code>&lt;!-- Dependencies --&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-cookies.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.1/angular-translate.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.2.2/angular-local-storage.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.13.4/sortable.min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Component Scripts --&gt;
+&lt;script src=&quot;scripts/ng-sticky-notes.min.js&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+<li><p>Add <code>ngStickyNotes</code> directives in your markup where you want to render notes:</p>
+<pre><code>!-- Render Add New button --&gt;
+&lt;ng-sticky-notes-new&gt;&lt;/ng-sticky-notes-new&gt;
+&lt;!-- Render Clean button --&gt;
+&lt;ng-sticky-notes-clean&gt;&lt;/ng-sticky-notes-clean&gt;
+&lt;!-- Render Sticky Notes --&gt;
+&lt;div class=&quot;sticky-notes content&quot;&gt;
+ &lt;ng-sticky-notes header-max-length=&quot;headerMaxLength&quot;
+                  content-max-length=&quot;contentMaxLength&quot;
+                  readonly-enabled=&quot;readonlyEnabled&quot;
+                  drag-and-drop-enabled=&quot;dragAndDropEnabled&quot;
+                  out-drop-enabled=&quot;outDropEnabled&quot;
+                  magnetic-effect-enabled=&quot;magneticEffectEnabled&quot;&gt;
+ &lt;/ng-sticky-notes&gt;
+&lt;/div&gt;
+</code></pre></li>
+<li><p>Run Sticker Notes scripts. 
+If your project is already build with Angular, just make sure that <code>ngStickyNotes</code> module is referenced in your module dependencies.</p>
+<pre><code>angular.module(&#39;MyModule&#39;, [&#39;ngStickyNotes&#39;])
+</code></pre><p>If you have no angular yet, just add <code>ng-app=&quot;ngStickyNotes&quot;</code> attribute at the beginning of the page</p>
+<pre><code>&lt;html lang=&quot;en&quot; ng-app=&quot;ngStickyNotes&quot;&gt;
+</code></pre><p>or run this code that makes a similar thing automatically:</p>
+<pre><code>angular.bootstrap(document, [&#39;ngStickyNotes&#39;]);
+</code></pre></li>
+<li><p>If you want to bind Sticky Notes to the current user profile or sessionId specify <code>cookieKey</code> value in the <code>notesStorageProvider</code> config.</p>
+<pre><code>angular
+.module(&#39;myApp&#39;, [&#39;ngStickyNotes&#39;])
+.config(function(notesStorageProvider){
+    notesStorageProvider.setConfig({
+        cookieKey: &#39;uid&#39;
+    });
+})
+</code></pre></li>
+<li><p>You are able to sync notes between different instances using a <a href="https://www.firebase.com">FireBase</a> DataCloud. For this go to FireBase web site and create a new App. 
+Put the App URL to config and specify a Sync interval (how often would you like changes posted to server). </p>
+<pre><code>angular
+.module(&#39;myApp&#39;, [&#39;ngStickyNotes&#39;])
+.config(function(notesStorageProvider){
+    notesStorageProvider.setConfig({
+        cookieKey: &#39;uid&#39;,
+        fireURL: &#39;https://sticky-notes-server.firebaseio.com/&#39;,
+        SYNC_INTERVAL: 30000
+    });
+})
+</code></pre></li>
+</ol>
+<h3 id="dependencies">Dependencies</h3>
+<p>Here are some explanations regarding project dependencies:</p>
+<ol>
+<li><p><code>font-awesome.min.css</code> is needed for icons.</p>
+<pre><code>https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css
+</code></pre></li>
+<li><p><code>Reenie Beanie</code> font family displays text in hand written styles.</p>
+<pre><code>http://fonts.googleapis.com/css?family=Reenie+Beanie:regular
+</code></pre></li>
+<li><p><code>underscore</code> or <code>lodash</code> is used for sorting, searching and other utility functions;</p>
+<pre><code>https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js
+</code></pre></li>
+<li><p><code>jquery</code>, <code>jquery-ui</code> and <code>angular-ui-sortable</code> are mostly used for drag&amp;drop functionality.</p>
+<pre><code>https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js
+https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.13.4/sortable.min.js
+</code></pre></li>
+<li><p><code>angular</code> is awesome and used for combining all together and data binding.</p>
+<pre><code>https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js
+</code></pre></li>
+<li><p><code>angular-cookies</code> is required for reading user cookies to bind sticker notes to a specific user id or session id.</p>
+<pre><code>https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-cookies.min.js
+</code></pre></li>
+<li><p><code>angular-translate</code> is required since the component supports localization.</p>
+<pre><code>https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.1/angular-translate.min.js
+</code></pre></li>
+<li><p><code>angular-local-storage</code> is needed to store notes in the browser local storage.</p>
+<pre><code>https://cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.2.2/angular-local-storage.min.js
+</code></pre></li>
+</ol>
+<h3 id="customization">Customization</h3>
+<p><code>ngStickerNotes</code> component was build with customization and flexibility in mind.</p>
+<ol>
+<li><p>Update <code>variables.scss</code> to specify fonts, colors and so on.</p>
+</li>
+<li><p>Make your own buttons to Add/Clean notes using APIs.</p>
+</li>
+<li><p>to add a new note raise <code>ngStickyNotes.New</code> event on the <code>$rootScope</code></p>
+<pre><code>$rootScope.$broadcast(&#39;ngStickyNotes.New&#39;, {});
+</code></pre></li>
+<li><p>to remove a specific note raise <code>ngStickyNotes.Remove</code> event on the <code>$rootScope</code> with the note object:</p>
+<pre><code>$rootScope.$broadcast(&#39;ngStickyNotes.Remove&#39;, stickerItem);
+</code></pre><p>or</p>
+<pre><code>$rootScope.$broadcast(&#39;ngStickyNotes.Remove&#39;, {id: stickerItemId});
+</code></pre></li>
+<li><p>to remove all notes raise <code>ngStickyNotes.RemoveAll</code> event on the <code>$rootScope</code>:</p>
+<pre><code>$rootScope.$broadcast(&#39;ngStickyNotes.RemoveAll&#39;);
+</code></pre></li>
+<li><p>to refresh a list of notes raise <code>ngStickyNotes.Refresh</code> event on the <code>$rootScope</code>:</p>
+<pre><code>$rootScope.$broadcast(&#39;ngStickyNotes.Refresh&#39;);
+</code></pre></li>
+<li><p>To add more colors for sticky notes just specified your own color palette in the <code>colorsPaletteProvider</code>.</p>
+<pre><code>colorsPaletteProvider.setCustomColors([&#39;#ffc&#39;, &#39;#cfc&#39;, &#39;#ccf&#39;]);
+</code></pre></li>
+<li><p>To support more languages add your own localized constants like <code>src\scripts\i18n\locale.en-US.js</code> and register it in the module config this way:</p>
+<pre><code>angular
+ .module(&#39;ngStickyNotes&#39;)
+ .config(function ($translateProvider, EN_US) {
+     $translateProvider.translations(&#39;en-US&#39;, EN_US);
+     $translateProvider.preferredLanguage(&#39;en-US&#39;);
+ });
+</code></pre></li>
+</ol>

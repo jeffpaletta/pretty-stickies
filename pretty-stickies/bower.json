@@ -1,0 +1,31 @@
+{
+  "name": "ngStickyNotes",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Warlock"
+  ],
+  "license": "",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.10.1",
+    "angular-translate": "~2.8.1",
+    "angular-local-storage": "~0.2.3",
+    "angular-ui-sortable": "~0.13.4",
+    "jquery": "~2.1.4",
+    "jquery-ui": "~1.11.4",
+    "bootstrap": "~3.3.6",
+    "angular-cookies": "~1.4.8",
+    "firebase": "~2.4.0",
+    "angularfire": "~1.1.3"
+  }
+}
